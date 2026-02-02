@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lavish, Will You Be My Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      max-width: 420px;
+      animation: fadeIn 1.2s ease;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 26px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+      background: #ff1e4d;
+    }
+
+    #no {
+      background: #ddd;
+      color: #555;
+      position: relative;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_6bfa1b55d1.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="card">
+    <h1>Hey Lavish ❤️</h1>
+
+    <p>
+      From random laughs to quiet moments,  
+      everything feels a little better with you around.  
+      So I wanted to ask you something special…
+    </p>
+
+    <h1>Will you be my Valentine? 💌</h1>
+
+    <div class="buttons">
+      <button id="yes">YES 💖</button>
+      <button id="no">NO 🙈</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const card = document.getElementById('card');
+    const music = document.getElementById('music');
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    yesBtn.addEventListener('click', () => {
+      music.play();
+
+      card.innerHTML = `
+        <h1>YAYYY!! 💕</h1>
+        <p>
+          Lavish, you just made my heart so happy ❤️<br>
+          Happy Valentine’s Day!
+        </p>
+        <p>— from Riya 💌</p>
+      `;
+
+      setInterval(createHeart, 300);
+    });
+  </script>
+
+</body>
+</html>
