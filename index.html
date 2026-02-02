@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lavish, Will You Be My Valentine?</title>
+  <title>For Lavish ❤️</title>
+
   <style>
     body {
       margin: 0;
@@ -22,134 +23,182 @@
       text-align: center;
       box-shadow: 0 15px 40px rgba(0,0,0,0.2);
       max-width: 420px;
-      animation: fadeIn 1.2s ease;
       z-index: 2;
+      animation: fadeIn 1s ease;
     }
 
     h1 {
       color: #ff4d6d;
-      font-size: 28px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     p {
       color: #444;
-      font-size: 16px;
-      margin-bottom: 25px;
       line-height: 1.6;
+      font-size: 16px;
     }
 
     .buttons {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 25px;
     }
 
     button {
-      padding: 12px 26px;
+      padding: 12px;
       border: none;
       border-radius: 30px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       transition: 0.3s ease;
     }
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-    }
-
-    #yes:hover {
-      transform: scale(1.1);
-      background: #ff1e4d;
-    }
-
-    #no {
-      background: #ddd;
-      color: #555;
-      position: relative;
-    }
-
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      animation: floatUp 4s linear forwards;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    button:hover {
+      transform: scale(1.05);
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- Background Music -->
   <audio id="music" loop>
     <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_6bfa1b55d1.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="card" id="card">
-    <h1>Hey Lavish ❤️</h1>
-
-    <p>
-      From random laughs to quiet moments,  
-      everything feels a little better with you around.  
-      So I wanted to ask you something special…
-    </p>
-
-    <h1>Will you be my Valentine? 💌</h1>
-
-    <div class="buttons">
-      <button id="yes">YES 💖</button>
-      <button id="no">NO 🙈</button>
-    </div>
-  </div>
+  <div class="card" id="card"></div>
 
   <script>
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const card = document.getElementById('card');
-    const music = document.getElementById('music');
+    const card = document.getElementById("card");
+    const music = document.getElementById("music");
 
-    noBtn.addEventListener('mouseover', () => {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
-
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (20 + Math.random() * 20) + 'px';
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 4000);
+    /* 💖 HEART CHAOS */
+    function unleashLoveChaos() {
+      const hearts = ["❤️","💖","💘","💕","💞","💓"];
+      setInterval(() => {
+        const h = document.createElement("div");
+        h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        h.style.position = "fixed";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.top = "-20px";
+        h.style.fontSize = (20 + Math.random() * 30) + "px";
+        h.style.animation = "fall 4s linear forwards";
+        h.style.zIndex = "1";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 4000);
+      }, 120);
     }
 
-    yesBtn.addEventListener('click', () => {
+    /* QUESTION 1 */
+    function question1() {
+      card.innerHTML = `
+        <h1>Question 1 👀</h1>
+        <p>Who do you think is the best couple?</p>
+
+        <div class="buttons">
+          <button id="holly">Holly & Michael</button>
+          <button id="jake">Jake & Amy</button>
+          <button id="us">You & Me ❤️</button>
+        </div>
+
+        <div id="reaction" style="margin-top:20px;"></div>
+      `;
+
+      document.getElementById("holly").onclick = () => {
+        document.getElementById("reaction").innerHTML = `
+          <img src="https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif"
+               style="width:100%; border-radius:12px;">
+          <p>Absolutely not 😤</p>
+        `;
+      };
+
+      document.getElementById("jake").onmouseover = (e) => {
+        e.target.style.transform =
+          `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+      };
+
+      document.getElementById("us").onclick = question2;
+    }
+
+    /* QUESTION 2 */
+    function question2() {
+      card.innerHTML = `
+        <h1>Question 2 💭</h1>
+        <p>
+          Now that you have chosen us,<br>
+          are you free on<br>
+          <strong>Tuesday, November 25, 2031?</strong>
+        </p>
+
+        <div class="buttons">
+          <button id="secret">Yes but why?</button>
+          <button id="yesNext">YESSSSSS!!!!!!!!!!</button>
+          <button id="noBlast">No</button>
+        </div>
+
+        <div id="q2Reaction" style="margin-top:20px;"></div>
+      `;
+
+      document.getElementById("secret").onclick = () => {
+        document.getElementById("q2Reaction").innerText =
+          "🤫 Sorry… it’s a secret 😉";
+      };
+
+      document.getElementById("noBlast").onclick = (e) => {
+        e.target.style.transform = "scale(2)";
+        e.target.style.opacity = "0";
+        setTimeout(() => e.target.remove(), 300);
+      };
+
+      document.getElementById("yesNext").onclick = question3;
+    }
+
+    /* QUESTION 3 – FINAL */
+    function question3() {
       music.play();
 
       card.innerHTML = `
-        <h1>YAYYY!! 💕</h1>
+        <h1>💌</h1>
+
         <p>
-          Lavish, you just made my heart so happy ❤️<br>
-          Happy Valentine’s Day!
+          You may know where all of these things are leading to.<br>
+          So I just want to come clean and tell you.
         </p>
-        <p>— from Riya 💌</p>
+
+        <h1>CONGRATULATIONS 🎉</h1>
+
+        <p style="font-size:18px;">
+          That I have chosen <strong>you</strong><br>
+          as my Valentine<br>
+          <strong>for the 2nd time.</strong> ❤️
+        </p>
+
+        <p style="margin-top:20px;">
+          This is not a question.<br>
+          This is a true statement.
+        </p>
+
+        <p style="margin-top:30px; font-weight:600;">
+          Regards,<br>
+          Riya Giri 💌
+        </p>
       `;
 
-      setInterval(createHeart, 300);
-    });
+      unleashLoveChaos();
+    }
+
+    /* START */
+    question1();
   </script>
 
 </body>
